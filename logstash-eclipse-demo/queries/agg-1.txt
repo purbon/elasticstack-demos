@@ -1,0 +1,31 @@
+##
+## histogram of bug severity per so
+##
+
+GET logstash-*/_search?search_type=count
+{
+  "aggs": {
+    "histo": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "interval": "month"
+      }
+      , "aggs": {
+        "top_bugs": {
+          "terms": {
+            "field": "entry.bug_severity",
+            "size": 10
+          }
+          , "aggs": {
+            "top_ops": {
+              "terms": {
+                "field": "entry.op_sys.raw",
+                "size": 10
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

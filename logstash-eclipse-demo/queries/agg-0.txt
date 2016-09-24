@@ -1,0 +1,48 @@
+##
+## Resolved bugs bug severtiy count
+##
+GET logstash-*/_search?search_type=count
+{
+  "query": {
+    "match": {
+      "entry.bug_status": "RESOLVED"
+    }
+  }
+  , "aggs": {
+    "top_severity": {
+      "terms": {
+        "field": "entry.bug_severity",
+        "size": 10
+      }
+    }
+  }
+}
+
+---
+##
+## Elapsed bug resolution time per operating system
+##
+
+GET logstash-*/_search?search_type=count
+{
+  "query": {
+    "match": {
+      "entry.bug_status": "RESOLVED"
+    }
+  },
+  "aggs": {
+    "top_severity": {
+      "terms": {
+        "field": "entry.op_sys.raw",
+        "size": 10
+      }
+      , "aggs": {
+        "avg_elapsed": {
+          "avg": {
+            "field": "elapsed"
+          }
+        }
+      }
+    }
+  }
+}
