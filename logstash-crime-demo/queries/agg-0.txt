@@ -1,0 +1,129 @@
+##
+## Top crimes per location
+##
+
+GET logstash-*/_search?search_type=count
+{
+  "aggs": {
+    "top_location": {
+      "terms": {
+        "field": "Location Description.raw",
+        "size": 10
+      }
+    }
+  }
+}
+
+---
+
+##
+## Histogram of crimes per type
+##
+
+GET logstash-*/_search?search_type=count
+{
+  "aggs": {
+    "time_distribution": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "interval": "month"
+      }
+      , "aggs": {
+        "per_crime": {
+          "terms": {
+            "field": "Primary Type.raw",
+            "size": 10
+          }
+        }
+      }
+    }
+  }
+}
+
+---
+
+##
+## Crimes per districts
+##
+
+GET logstash*/_search?search_type=count
+{
+  "aggs": {
+    "top_districts": {
+      "terms": {
+        "field": "District.raw",
+        "size": 10
+      }
+      , "aggs": {
+        "top_types": {
+          "terms": {
+            "field": "Primary Type.raw",
+            "size": 2
+          }
+        }
+      }
+    }
+  }
+}
+
+---
+
+##
+## Where to get Cannabis in Chicago
+##
+
+GET logstash-*/_search?search_type=count
+{
+  "query": {
+    "match": {
+      "Description": "cannabis"
+    }
+  }, 
+  "aggs": {
+    "top_description": {
+      "terms": {
+        "field": "Description.raw",
+        "size": 10
+      }
+      , "aggs": {
+        "top_types": {
+          "terms": {
+            "field": "District.raw",
+            "size": 1
+          }
+        }
+      }
+    }
+  }
+}
+
+---
+
+##
+## Crimes involding sex
+##
+
+GET logstash-*/_search?search_type=count
+{
+  "query": {
+    "match": {
+      "Description": "sex"
+    }
+  }, 
+  "aggs": {
+    "top_description": {
+      "terms": {
+        "field": "Description.raw",
+        "size": 10
+      }
+      , "aggs": {
+        "top_types": {
+          "terms": {
+            "field": "District.raw",
+            "size": 1
+          }
+        }
+      }
+    }
+  }
+}
