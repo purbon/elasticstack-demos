@@ -1,0 +1,3 @@
+.vagrant
+*.rb
+sys/.vagrant

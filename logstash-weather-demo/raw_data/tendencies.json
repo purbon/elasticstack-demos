@@ -1,0 +1,30 @@
+{
+  "tendencies" : [
+    {
+      "codi ":"tg ",
+      " descripcio":" Variació de la temperatura de la tarda i vespre respecte el dia anterior"
+    },
+    {
+      "codi ":"tx ",
+      " descripcio":" Variació de la temperatura màxima respecte el dia anterior"
+    },
+    {
+      "codi ":"tn ",
+      " descripcio":" Variació de la temperatura mínima respecte el dia anterior"
+    }
+  ],
+  "valors" : [
+    {
+      "valor ":1 ,
+      " descripcio":" En ascens"
+    },
+    {
+      "valor ":0 ,
+      " descripcio":" Sense canvis"
+    },
+    {
+      "valor ":-1 ,
+      " descripcio":" En descens"
+    }
+  ]
+}
