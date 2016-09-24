@@ -1,0 +1,7 @@
+Scripted fields formulas
+
+calories
+((34*0.2017)-(70*0.09036)+(180*0.6309)-55.0969)*doc['activities.time'].value/4.184
+
+distance (km)
+doc['activities.distance'].value/1000
